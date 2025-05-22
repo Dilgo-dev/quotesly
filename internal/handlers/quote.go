@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
 
 	"github.com/Dilgo-dev/quotesly/internal/config"
@@ -15,6 +16,26 @@ func GetQuote(w http.ResponseWriter, r *http.Request) {
 	db.Find(&quotes)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(quotes)
+}
+
+func GetRandomQuote(w http.ResponseWriter, r *http.Request) {
+	db := config.GetDB()
+	var numberQuotes int64
+	var quote models.Quote
+
+	db.Model(&models.Quote{}).Count(&numberQuotes)
+
+	if numberQuotes == 0 {
+		http.Error(w, "No quotes found", http.StatusNotFound)
+		return
+	}
+
+	randomIndex := rand.Intn(int(numberQuotes)) + 1
+
+	db.First(&quote, randomIndex)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(quote)
 }
 
 func CreateQuote(w http.ResponseWriter, r *http.Request) {

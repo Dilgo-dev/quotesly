@@ -30,6 +30,7 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/api/quotes", handlers.GetQuote)
+	r.Get("/api/quotes/random", handlers.GetRandomQuote)
 	r.Post("/api/quotes", handlers.CreateQuote)
 
 	log.Println("Starting server on port http://localhost:" + port)
