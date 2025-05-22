@@ -2,7 +2,7 @@
 
 > 🎓 **Projet pédagogique** - Une API REST simple pour découvrir le développement backend avec Go, Chi Router et GORM.
 
-Une API de citations aléatoires qui permet de gérer et récupérer des citations inspirantes. Parfait pour apprendre les concepts CRUD et les bonnes pratiques REST API !
+Une API de citations aléatoires qui permet de gérer et récupérer des citations 🔮
 
 ## 🚀 Fonctionnalités
 
