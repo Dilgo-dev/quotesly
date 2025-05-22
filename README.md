@@ -1,4 +1,4 @@
-# 📚 Quotesly
+# 🦆 Quotesly
 
 > 🎓 **Projet pédagogique** - Une API REST simple pour découvrir le développement backend avec Go, Chi Router et GORM.
 
