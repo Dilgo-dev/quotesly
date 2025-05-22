@@ -13,6 +13,7 @@ func GetQuote(w http.ResponseWriter, r *http.Request) {
 	var quotes []models.Quote
 
 	db.Find(&quotes)
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(quotes)
 }
 
