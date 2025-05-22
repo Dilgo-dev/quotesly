@@ -32,6 +32,7 @@ func main() {
 	r.Get("/api/quotes", handlers.GetQuote)
 	r.Get("/api/quotes/random", handlers.GetRandomQuote)
 	r.Post("/api/quotes", handlers.CreateQuote)
+	r.Get("/api/quotes/category/{category}", handlers.GetQuoteByCategory)
 
 	log.Println("Starting server on port http://localhost:" + port)
 	http.ListenAndServe(":"+port, r)

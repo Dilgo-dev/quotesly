@@ -7,6 +7,7 @@ import (
 
 	"github.com/Dilgo-dev/quotesly/internal/config"
 	"github.com/Dilgo-dev/quotesly/internal/models"
+	"github.com/go-chi/chi/v5"
 )
 
 func GetQuote(w http.ResponseWriter, r *http.Request) {
@@ -58,4 +59,21 @@ func CreateQuote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(quote)
+}
+
+func GetQuoteByCategory(w http.ResponseWriter, r *http.Request) {
+	db := config.GetDB()
+	category := chi.URLParam(r, "category")
+
+	var quotes []models.Quote
+
+	db.Where("category = ?", category).Find(&quotes)
+
+	if len(quotes) == 0 {
+		http.Error(w, "No quotes found", http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(quotes)
 }
