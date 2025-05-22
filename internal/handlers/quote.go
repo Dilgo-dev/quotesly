@@ -46,8 +46,8 @@ func CreateQuote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if quote.Quote == "" || quote.Author == "" {
-		http.Error(w, "Quote and author are required", http.StatusBadRequest)
+	if quote.Quote == "" || quote.Author == "" || quote.Category == "" {
+		http.Error(w, "Quote, author and category are required", http.StatusBadRequest)
 		return
 	}
 
