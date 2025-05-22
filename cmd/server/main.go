@@ -29,7 +29,8 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	r.Get("/", handlers.GetQuote)
+	r.Get("/api/quotes", handlers.GetQuote)
+	r.Post("/api/quotes", handlers.CreateQuote)
 
 	log.Println("Starting server on port http://localhost:" + port)
 	http.ListenAndServe(":"+port, r)

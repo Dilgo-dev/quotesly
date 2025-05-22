@@ -15,3 +15,25 @@ func GetQuote(w http.ResponseWriter, r *http.Request) {
 	db.Find(&quotes)
 	json.NewEncoder(w).Encode(quotes)
 }
+
+func CreateQuote(w http.ResponseWriter, r *http.Request) {
+	var quote models.Quote
+
+	if err := json.NewDecoder(r.Body).Decode(&quote); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if quote.Quote == "" || quote.Author == "" {
+		http.Error(w, "Quote and author are required", http.StatusBadRequest)
+		return
+	}
+
+	db := config.GetDB()
+	if err := db.Create(&quote).Error; err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(quote)
+}
